@@ -10,8 +10,10 @@ options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--ignore-ssl-errors')
 driver = webdriver.Chrome()
+#implicit wait (in seconds) to poll from DOM instead of immediately.
 driver.implicitly_wait(1)
 driver.get("https://www.sporcle.com/games/g/southamerica")
+#set up screen so more centered and visible.
 driver.maximize_window()
 body = driver.find_element_by_css_selector('body')
 body.send_keys(Keys.PAGE_DOWN)
@@ -25,6 +27,7 @@ except:
     print("Not loading")
 
 gameInput = driver.find_element_by_id("gameinput")
+#list of Countries. Separated Bra and zil so we can visually see input into gameInput button.
 SACountries = ["Bra", "zil" "Argentina", "Uruguay", "Venezuela", "Bolivia", "Paraguay", "Suriname", "Guyana", "Chile",
                "Colombia", "Ecuador", "peru"]
 try:
