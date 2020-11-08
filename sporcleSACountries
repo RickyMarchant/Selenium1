@@ -1,0 +1,36 @@
+#Ricky Marchant
+#Open Sporcle and enter South American countries to complete the quiz.
+
+import time
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+options = webdriver.ChromeOptions()
+options.add_argument('--ignore-certificate-errors')
+options.add_argument('--ignore-ssl-errors')
+driver = webdriver.Chrome()
+driver.implicitly_wait(1)
+driver.get("https://www.sporcle.com/games/g/southamerica")
+driver.maximize_window()
+body = driver.find_element_by_css_selector('body')
+body.send_keys(Keys.PAGE_DOWN)
+body.send_keys(Keys.ARROW_UP)
+body.send_keys(Keys.ARROW_UP)
+
+try:
+    playButton = driver.find_element_by_id("button-play")
+    playButton.click()
+except:
+    print("Not loading")
+
+gameInput = driver.find_element_by_id("gameinput")
+SACountries = ["Bra", "zil" "Argentina", "Uruguay", "Venezuela", "Bolivia", "Paraguay", "Suriname", "Guyana", "Chile",
+               "Colombia", "Ecuador", "peru"]
+try:
+    for country in SACountries:
+        gameInput.send_keys(country)
+        time.sleep(0.5)
+
+except:
+    driver.quit()
