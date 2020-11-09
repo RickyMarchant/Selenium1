@@ -29,7 +29,7 @@ try:
 except:
     print("Not loading")
 
-#created explicit wait
+# Created explicit wait
 waitSomeTime = WebDriverWait(driver, 10)
 gameInput = waitSomeTime.until(EC.element_to_be_clickable((By.ID, "gameinput")))
 # Separated Bra and zil so we can visually see input into gameInput element.
