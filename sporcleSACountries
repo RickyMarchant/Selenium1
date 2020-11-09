@@ -4,7 +4,10 @@
 import time
 
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
@@ -26,7 +29,9 @@ try:
 except:
     print("Not loading")
 
-gameInput = driver.find_element_by_id("gameinput")
+#created explicit wait
+waitSomeTime = WebDriverWait(driver, 10)
+gameInput = waitSomeTime.until(EC.element_to_be_clickable((By.ID, "gameinput")))
 # Separated Bra and zil so we can visually see input into gameInput element.
 SACountries = ["Bra", "zil" "Argentina", "Uruguay", "Venezuela", "Bolivia", "Paraguay", "Suriname", "Guyana", "Chile",
                "Colombia", "Ecuador", "peru"]
