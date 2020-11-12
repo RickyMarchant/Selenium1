@@ -9,11 +9,13 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
+
 class PythonOrgSearch(unittest.TestCase):
-    #Setup initialization. This method is called before every test function.
+    # Setup initialization. This method is called before every test function.
     def setUp(self):
         self.driver = webdriver.Chrome()
-    #test case example.
+
+    # test case example.
     def test_run_sporcle(self):
         driver = self.driver
         # implicit wait (in seconds) to poll from DOM instead of immediately.
@@ -36,14 +38,17 @@ class PythonOrgSearch(unittest.TestCase):
         waitSomeTime = WebDriverWait(driver, 10)
         gameInput = waitSomeTime.until(EC.element_to_be_clickable((By.ID, "gameinput")))
         # Separated Bra and zil so we can visually see input into gameInput element.
-        SACountries = ["Bra", "zil" "Argentina", "Uruguay", "Venezuela", "Bolivia", "Paraguay", "Suriname", "Guyana", "Chile",
+        SACountries = ["Bra", "zil" "Argentina", "Uruguay", "Venezuela", "Bolivia", "Paraguay", "Suriname", "Guyana",
+                       "Chile",
                        "Colombia", "Ecuador", "peru"]
         for country in SACountries:
             gameInput.send_keys(country)
             time.sleep(0.5)
 
+    # Called after every test method to exit.
     def tearDown(self):
         self.driver.quit()
 
+
 if __name__ == "__main__":
-            unittest.main()
+    unittest.main()
