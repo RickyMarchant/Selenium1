@@ -2,43 +2,48 @@
 # Open Sporcle and enter South American countries to complete the quiz.
 
 import time
-
+import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
-options = webdriver.ChromeOptions()
-options.add_argument('--ignore-certificate-errors')
-options.add_argument('--ignore-ssl-errors')
-driver = webdriver.Chrome()
-# implicit wait (in seconds) to poll from DOM instead of immediately.
-driver.implicitly_wait(1)
-driver.get("https://www.sporcle.com/games/g/southamerica")
-# set up screen so more centered and visible.
-driver.maximize_window()
-body = driver.find_element_by_css_selector('body')
-body.send_keys(Keys.PAGE_DOWN)
-body.send_keys(Keys.ARROW_UP)
-body.send_keys(Keys.ARROW_UP)
+class PythonOrgSearch(unittest.TestCase):
+    #Setup initialization. This method is called before every test function.
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+    #test case example.
+    def test_run_sporcle(self):
+        driver = self.driver
+        # implicit wait (in seconds) to poll from DOM instead of immediately.
+        driver.implicitly_wait(1)
+        driver.get("https://www.sporcle.com/games/g/southamerica")
+        # set up screen so more centered and visible.
+        driver.maximize_window()
+        body = driver.find_element_by_css_selector('body')
+        body.send_keys(Keys.PAGE_DOWN)
+        body.send_keys(Keys.ARROW_UP)
+        body.send_keys(Keys.ARROW_UP)
 
-try:
-    playButton = driver.find_element_by_id("button-play")
-    playButton.click()
-except:
-    print("Not loading")
+        try:
+            playButton = driver.find_element_by_id("button-play")
+            playButton.click()
+        except:
+            print("Not loading")
 
-# Created explicit wait
-waitSomeTime = WebDriverWait(driver, 10)
-gameInput = waitSomeTime.until(EC.element_to_be_clickable((By.ID, "gameinput")))
-# Separated Bra and zil so we can visually see input into gameInput element.
-SACountries = ["Bra", "zil" "Argentina", "Uruguay", "Venezuela", "Bolivia", "Paraguay", "Suriname", "Guyana", "Chile",
-               "Colombia", "Ecuador", "peru"]
-try:
-    for country in SACountries:
-        gameInput.send_keys(country)
-        time.sleep(0.5)
+        # Created explicit wait
+        waitSomeTime = WebDriverWait(driver, 10)
+        gameInput = waitSomeTime.until(EC.element_to_be_clickable((By.ID, "gameinput")))
+        # Separated Bra and zil so we can visually see input into gameInput element.
+        SACountries = ["Bra", "zil" "Argentina", "Uruguay", "Venezuela", "Bolivia", "Paraguay", "Suriname", "Guyana", "Chile",
+                       "Colombia", "Ecuador", "peru"]
+        for country in SACountries:
+            gameInput.send_keys(country)
+            time.sleep(0.5)
 
-except:
-    driver.quit()
+    def tearDown(self):
+        self.driver.quit()
+
+if __name__ == "__main__":
+            unittest.main()
